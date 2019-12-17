@@ -1,2 +1,2 @@
-# mern-arcardia
+# mern-arcadia
 MERN stack project
