@@ -24,6 +24,14 @@ export const MENU_CHANGE_DEFAULT_CLASSES = "MENU_CHANGE_DEFAULT_CLASSES";
 export const MENU_CHANGE_HAS_SUB_ITEM_STATUS =
   "MENU_CHANGE_HAS_SUB_ITEM_STATUS";
 
+/* Site-Audit */
+export const UPLOAD_CSV_SUCCESS = "UPLOAD_CSV_SUCCESS";
+export const GET_SITE_LIST = "GET_SITE_LIST";
+export const GET_SITE_DETAIL = "GET_SITE_DETAIL";
+export const GET_WEATHER = "GET_WEATHER";
+export const GET_LAND = "GET_LAND";
+
 export * from "./menu/actions";
 export * from "./settings/actions";
 export * from "./auth/actions";
+export * from "./site/actions";

@@ -5,8 +5,9 @@
   "private": true,
   "dependencies": {
     "@glidejs/glide": "^3.3.0",
+    "annyang": "^2.6.1",
     "availity-reactstrap-validation": "^2.0.4",
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "chart.js": "2.7.2",
     "classnames": "2.2.6",
     "firebase": "^7.4.0",
@@ -25,6 +26,8 @@
     "react-datepicker": "^1.5.0",
     "react-dom": "^16.8.6",
     "react-dropzone-component": "^3.2.0",
+    "react-file-picker": "0.0.6",
+    "react-file-reader": "^1.1.4",
     "react-google-maps": "^9.4.5",
     "react-image-lightbox": "^5.1.0",
     "react-intl": "2.4.0",
@@ -44,6 +47,7 @@
     "reactstrap": "^8.0.1",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
+    "redux-thunk": "^2.3.0",
     "sortablejs": "^1.6.1",
     "video.js": "^7.6.0",
     "yup": "^0.27.0"

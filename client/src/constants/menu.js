@@ -1,26 +1,36 @@
 const data = [
   {
-    id: "gogo",
+    id: "site-audit",
     icon: "iconsminds-air-balloon-1",
-    label: "menu.gogo",
-    to: "/app/gogo",
+    label: "menu.site-audit",
+    to: "/app/site",
     subs: [
       {
         icon: "simple-icon-paper-plane",
-        label: "menu.start",
-        to: "/app/gogo/start"
-      }     
+        label: "menu.import-from-csv",
+        to: "/app/site/import-from-csv"
+      },
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.create-site",
+        to: "/app/site/create-site"
+      },
+      {
+        icon: "simple-icon-paper-plane",
+        label: "menu.site-list",
+        to: "/app/site/site-list"
+      }
     ]
   },
   {
-    id: "secondmenu",
+    id: "project-management",
     icon: "iconsminds-three-arrow-fork",
-    label: "menu.second-menu",
+    label: "menu.project-management",
     to: "/app/second-menu",
     subs: [
       {
         icon: "simple-icon-paper-plane",
-        label: "menu.second",
+        label: "menu.project-detail",
         to: "/app/second-menu/second"
       }
     ]

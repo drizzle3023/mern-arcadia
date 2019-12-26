@@ -6,6 +6,7 @@ Table of Contents
 02.User Login, Logout, Register
 03.Menu
 04.Error Page
+05.Button
 */
 
 
@@ -39,12 +40,54 @@ module.exports = {
   "menu.chat": "Chat",
   "menu.survey": "Survey",
   "menu.todo": "Todo",
-  "menu.search" :"Search",
+  "menu.search": "Search",
   "menu.docs": "Docs",
   "menu.blank-page": "Blank Page",
 
- /* 04.Error Page */
- "pages.error-title": "Ooops... looks like an error occurred!",
- "pages.error-code": "Error code",
- "pages.go-back-home": "GO BACK HOME",
+  /* Arcadia Menus */
+  /* Site Audit */
+  "menu.site": "Site Audit",
+  "menu.site-audit": "Site Audit",
+  "menu.import-from-csv": "Import From CSV",
+  "menu.create-site": "Create Site",
+  "menu.site-list": "Site List",
+  "menu.site-detail": "Site Detail",
+
+  /* Project Management */
+  "menu.project-management": "Project Management",
+  "menu.project-detail": "Project Detail",
+
+  /* 04.Error Page */
+  "pages.error-title": "Ooops... looks like an error occurred!",
+  "pages.error-code": "Error code",
+  "pages.go-back-home": "GO BACK HOME",
+
+  /* 05.Button */
+  "button.import-from-csv": "Import From CSV",
+
+  /* 06.Table */
+  "table.site-list": "Site list",
+
+  "wizard.create-site.step-name-1": "Step 1",
+  "wizard.create-site.step-name-2": "Step 2",
+  "wizard.create-site.step-name-3": "Step 3",
+  "wizard.create-site.step-name-4": "Step 4",
+  "wizard.create-site.step-name-5": "Step 5",
+  "wizard.create-site.step-name-6": "Step 6",
+  "wizard.create-site.step-name-7": "Step 7",
+  "wizard.create-site.step-name-8": "Step 8",
+  "wizard.create-site.step-name-9": "Step 9",
+
+  "wizard.create-site.step-desc-1": "General",
+  "wizard.create-site.step-desc-2": "Zoning Constraints",
+  "wizard.create-site.step-desc-3": "General Building Information And Access",
+  "wizard.create-site.step-desc-4": "Roof Top Conditions",
+  "wizard.create-site.step-desc-5": "Fall Prevention",
+  "wizard.create-site.step-desc-6": "Means of Access",
+  "wizard.create-site.step-desc-7": "Misc",
+  "wizard.create-site.step-desc-8": "Power",
+  "wizard.create-site.step-desc-9": "Fiber",
+
+  "wizard.prev": "Back",
+  "wizard.next": "Next",
 };
