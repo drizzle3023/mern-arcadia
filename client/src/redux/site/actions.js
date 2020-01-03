@@ -2,8 +2,8 @@ import axios from "axios";
 
 import { UPLOAD_CSV_SUCCESS, GET_SITE_LIST, GET_SITE_DETAIL, GET_WEATHER, GET_LAND } from "../actions";
 
-const url = "http://192.168.1.15:5000";
-//const url = "";
+//const url = "http://192.168.1.15:5000";
+const url = "";
 //const url = "https://35.236.219.177:5000";
 
 // Upload CSV
