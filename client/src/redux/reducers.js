@@ -3,13 +3,15 @@ import settings from './settings/reducer';
 import menu from './menu/reducer';
 import authUser from './auth/reducer';
 import siteAudit from './site/reducer';
+import entityUser from './entity/reducer';
 
 
 const reducers = combineReducers({
   menu,
   settings,
   authUser,
-  siteAudit
+  siteAudit,
+  entityUser
 });
 
 export default reducers;

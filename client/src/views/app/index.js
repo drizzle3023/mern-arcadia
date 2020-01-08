@@ -13,6 +13,9 @@ const BlankPage = React.lazy(() =>
 const SiteAudit = React.lazy(() =>
   import('./site-audit')
 );
+const EntityUser = React.lazy(() =>
+  import('./entity-user')
+);
 
 class App extends Component {
   render() {
@@ -23,7 +26,7 @@ class App extends Component {
         <div className="dashboard-wrapper">
           <Suspense fallback={<div className="loading" />}>
             <Switch>
-              <Redirect exact from={`${match.url}/`} to={`${match.url}/site/site-list`} />
+              <Redirect exact from={`${match.url}/`} to={`${match.url}/site/import-from-csv`} />
               <Route
                 path={`${match.url}/site`}
                 render={props => <SiteAudit {...props} />}
@@ -31,6 +34,10 @@ class App extends Component {
               <Route
                 path={`${match.url}/second-menu`}
                 render={props => <SecondMenu {...props} />}
+              />
+              <Route
+                path={`${match.url}/entity`}
+                render={props => <EntityUser {...props} />}
               />
               <Route
                 path={`${match.url}/blank-page`}

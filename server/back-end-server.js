@@ -31,6 +31,8 @@ mongoose.connect(mongoURI, {useNewUrlParser: true})
     .catch(err => console.log(err));
 
 appBackEnd.use("/site", require("./routes/site.js"));
+appBackEnd.use("/entity", require("./routes/entity.js"));
+appBackEnd.use("/user", require("./routes/user.js"));
 
 /*
 https.createServer(httpsOptions, appBackEnd).listen(defaultPortWhenIndividual, function () {

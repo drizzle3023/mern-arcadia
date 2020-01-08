@@ -63,6 +63,7 @@ if (clustering && cluster.isMaster) {
     appFrontEnd.use('/', router);
 
     appBackEnd.use("/site", require("./routes/site"));
+    appBackEnd.use("/entity", require("./routes/entity"));
 
     https.createServer(httpsOptions, appBackEnd).listen(defaultPortWhenIndividual, function () {
         console.log("BackEnd Server is running on port: " + defaultPortWhenIndividual)

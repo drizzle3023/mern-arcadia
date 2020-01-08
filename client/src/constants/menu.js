@@ -36,6 +36,24 @@ const data = [
     ]
   },
   {
+    id: "entity-user-management",
+    icon: "iconsminds-business-mens",
+    label: "menu.entity-user-management",
+    to: "/app/entity",
+    subs: [
+      {
+        icon: "simple-icon-organization",
+        label: "menu.entity-management",
+        to: "/app/entity/entity-list"
+      },
+      {
+        icon: "simple-icon-people",
+        label: "menu.user-management",
+        to: "/app/entity/user-list"
+      }
+    ]
+  },
+  {
     id: "blankpage",
     icon: "iconsminds-bucket",
     label: "menu.blank-page",

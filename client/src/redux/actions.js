@@ -31,7 +31,24 @@ export const GET_SITE_DETAIL = "GET_SITE_DETAIL";
 export const GET_WEATHER = "GET_WEATHER";
 export const GET_LAND = "GET_LAND";
 
+/* Entity-User */
+export const GET_ENTITY_LIST = "GET_ENTITY_LIST";
+export const GET_ENTITY_DETAIL = "GET_ENTITY_DETAIL";
+export const GET_ENTITY_EDIT = "GET_ENTITY_EDIT";
+export const UPDATE_ENTITY = "UPDATE_ENTITY";
+export const CREATE_ENTITY = "CREATE_ENTITY";
+export const DELETE_ENTITY = "DELETE_ENTITY";
+export const GET_ENTITY_LIST_NO_FILTER = "GET_ENTITY_LIST_NO_FILTER";
+
+export const GET_USER_LIST = "GET_USER_LIST";
+export const GET_USER_DETAIL = "GET_USER_DETAIL";
+export const GET_USER_EDIT = "GET_USER_EDIT";
+export const UPDATE_USER = "UPDATE_USER";
+export const CREATE_USER = "CREATE_USER";
+export const DELETE_USER = "DELETE_USER";
+
 export * from "./menu/actions";
 export * from "./settings/actions";
 export * from "./auth/actions";
 export * from "./site/actions";
+export * from "./entity/actions";

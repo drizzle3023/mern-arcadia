@@ -57,6 +57,22 @@ module.exports = {
   "menu.project-management": "Project Management",
   "menu.project-detail": "Project Detail",
 
+/* Entity & User Management */
+  "menu.entity-user-management": "Entity & User Management",
+  "menu.entity-management": "Entity Management",
+  "menu.user-management": "User Management",
+  "menu.entity": "Entity",
+  "menu.entity-list": "Entity List",
+  "menu.entity-detail": "Entity Detail",
+  "menu.entity-edit": "Edit Entity",
+  "menu.entity-create": "Create Entity",
+
+  "menu.user": "User",
+  "menu.user-list": "User List",
+  "menu.user-detail": "User Detail",
+  "menu.user-edit": "Edit User",
+  "menu.user-create": "Create User",
+
   /* 04.Error Page */
   "pages.error-title": "Ooops... looks like an error occurred!",
   "pages.error-code": "Error code",
@@ -67,6 +83,8 @@ module.exports = {
 
   /* 06.Table */
   "table.site-list": "Site list",
+  "table.entity-list": "Entity list",
+  "table.user-list": "User list",
 
   /* 07.Wizard */
   "wizard.create-site.step-name-1": "Step 1",
@@ -193,6 +211,15 @@ module.exports = {
   "forms.Connector type required: APC/UPC": "Connector type required: APC/UPC",
   "forms.Pull string required?": "Pull string required?",
   "forms.Permits required?": "Permits required?",
-  "forms.Sufficient area for crane set up and lifting": "Sufficient area for crane set up and lifting"
+  "forms.Sufficient area for crane set up and lifting": "Sufficient area for crane set up and lifting",
 
+  "forms.email": "Email",
+  "forms.name": "Name",
+  "forms.password": "Password",
+  "forms.phone-number": "Phone Number",
+
+  "common.confirm-delete": "Are you sure to delete?",
+  "common.yes": "Yes",
+  "common.no": "No",
+  "common.add": "Add"
 };
