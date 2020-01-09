@@ -10,6 +10,7 @@ const csvtojson = require('csvtojson');
 const axios = require('axios');
 
 const entityModel = require("../models/entity.js");
+const userModel = require("../models/user.js");
 entityRouter.use(cors());
 
 process.env.SECRET_KEY = 'secret';
@@ -115,26 +116,42 @@ entityRouter.post("/delete", (req, res) => {
 
     console.log("delete request: " + req.body.entityId);
 
-    entityModel.findOne({
-        _id: req.body.entityId
-    }, function(err, entityData){
-        if (!err){
-            if (!entityData){
-                console.log("db error");
-                res.json(createResponse(err, responseMessages.dbError));
-            }
-            entityData.deleteOne(function(err){
-                if (!err){
-                    console.log("delete success");
-                    res.json(createResponse(null, responseMessages.ok));
-                } else {
-                    console.log("delete failure");
-                    res.json(createResponse(err, responseMessages.error));
-                }
-            });
-        } else {
-            console.log("delete error");
-        }
+    userModel.findOne({entity: req.body.entityId})
+            .populate("entity")
+            .exec(
+                function (err, entityData){
+                    if (!err){
+                        if (entityData){
+                            console.log(entityData);
+                            res.json(createResponse("The information related to this entity exists.", responseMessages.ok));
+                        } else{
+                            console.log("no related");
+                            entityModel.findOne({
+                                _id: req.body.entityId
+                            }, function(err, entityData){
+                                if (!err){
+                                    if (!entityData){
+                                        console.log("db error");
+                                        res.json(createResponse(err, responseMessages.dbError));
+                                    }
+                                    entityData.deleteOne(function(err){
+                                        if (!err){
+                                            console.log("delete success");
+                                            res.json(createResponse("success", responseMessages.ok));
+                                        } else {
+                                            console.log("delete failure");
+                                            res.json(createResponse("error", responseMessages.error));
+                                        }
+                                    });
+                                } else {
+                                    console.log("db error");
+                                }
+                            });
+                        }
+                    } else {
+                        console.log("db error");
+                        res.json(createResponse("error", responseMessages.error));
+                    }
     });
 
 });
@@ -144,49 +161,49 @@ entityRouter.post('/get/filtered', (req, res) => {
     let pageNumber = req.body.pageNumber;
     let pageSize = req.body.pageSize;
     let filter = req.body.filter || '';
+    let sort = req.body.sort;
+    let sortObj = {};
+
     filter = filter.trim();
     if (filter.toLowerCase().startsWith("all")) {
         filter = '';
     }
 
-    if (filter === '') {
-        entityModel.count().then((totalCount) => {
-            entityModel.find()
-                .skip(pageNumber * pageSize)
-                .limit(pageSize)
-                .then(entityList => {
-                    res.json(createResponse({
-                        items: entityList,
-                        totalCount,
-                        pageSize,
-                        pageNumber,
-                        filter
-                    }));
-                });
-        });
-    }
-    else {
-        let condition = {
-                $or: [
-                    { entityName: { $regex: filter }}
-                ]
-            };
+    if (Object.keys(sort).length === 0){
+        sortObj = {'entityName': 1};
+    } else{
 
-        entityModel.count(condition).then((totalCount) => {
-            entityModel.find(condition)
-                .skip(pageNumber * pageSize)
-                .limit(pageSize)
-                .then(entityList => {
-                    res.json(createResponse({
-                        items: entityList,
-                        totalCount,
-                        pageSize,
-                        pageNumber,
-                        filter
-                    }));
-                });
-        });
+        let sortVal = -1;
+        let sortKey = 'entityName';
+        if (sort[0].desc === true)
+            sortVal = -1;
+        else
+            sortVal = 1;
+
+        sortKey = sort[0].id;
+
+        sortObj[sortKey] = sortVal;
+
+        console.log(sortObj);
     }
+
+    entityModel.count().then((totalCount) => {
+        entityModel.find()
+            .sort(sortObj)
+            .skip(pageNumber * pageSize)
+            .limit(pageSize)
+            .then(entityList => {
+                res.json(createResponse({
+                    items: entityList,
+                    totalCount,
+                    pageSize,
+                    pageNumber,
+                    filter,
+                    sort
+                }));
+            });
+    });
+
 });
 
 entityRouter.post('/get-all-no-filter', (req, res) => {

@@ -1,6 +1,6 @@
 import { 
     GET_ENTITY_LIST, GET_ENTITY_DETAIL, UPDATE_ENTITY, CREATE_ENTITY, DELETE_ENTITY, GET_ENTITY_LIST_NO_FILTER, 
-    GET_USER_LIST, GET_USER_DETAIL, UPDATE_USER, CREATE_USER, DELETE_USER } from "../actions";
+    GET_USER_LIST, GET_USER_DETAIL, UPDATE_USER, CREATE_USER, DELETE_USER, SELECT_ENTITY_FOR_USER_LIST } from "../actions";
 
 const INIT_STATE = {
     loading: false,
@@ -15,7 +15,8 @@ const INIT_STATE = {
     userDetail: [],
     userUpdate: [],
     userCreate: [],
-    userDelete: []
+    userDelete: [],
+    selectEntityForUserList: [],
 };
 
 export default (state = INIT_STATE, action) => {
@@ -42,6 +43,8 @@ export default (state = INIT_STATE, action) => {
             return { ...state, userCreate: action.payload };
         case DELETE_USER:
             return { ...state, userDelete: action.payload };
+        case SELECT_ENTITY_FOR_USER_LIST:
+            return { ...state, selectEntityForUserList: action.payload };
         default:
             return state;
     }

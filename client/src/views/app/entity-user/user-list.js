@@ -4,6 +4,7 @@ import { Row } from "reactstrap";
 import { Colxx, Separator } from "../../../components/common/CustomBootstrap";
 import Breadcrumb from "../../../containers/navs/Breadcrumb";
 import UserListTableCard from "../../../containers/ui/UserListTableCards";
+import EntityListTableForUser from "../../../containers/ui/EntityListTableForUser";
 
 export default class UserList extends Component {
 
@@ -22,7 +23,10 @@ export default class UserList extends Component {
                     </Colxx>
                 </Row>
                 <Row>
-                    <Colxx xxs="12">
+                    <Colxx xxs="4">
+                        <EntityListTableForUser />
+                    </Colxx>
+                    <Colxx xxs="8">
                         <UserListTableCard />
                     </Colxx>
                 </Row>

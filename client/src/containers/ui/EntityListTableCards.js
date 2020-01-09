@@ -39,46 +39,28 @@ class EntityListTableCard extends Component {
   savedTerm = "";
 
   componentDidMount() {
-
-    if (annyang) {
-
-      const commands = {
-
-        'show me *term': (term) => {
-          console.log('annyang: ' + term);
-          this.savedTerm = term;
-          this.props.getEntityList({
-            pageNumber: this.props.data.pageNumber,
-            pageSize: this.props.data.pageSize,
-            filter: term
-          });
-        }
-      };
-
-      annyang.addCommands(commands);
-      annyang.debug(true);
-      annyang.start();
-
-    }
   }
 
   componentWillMount() {
-    annyang.abort();
   }
 
   componentDidUpdate(prevProps){
 
     if (this.props.entityDelete !== prevProps.entityDelete){
 
-        if (this.props.entityDelete.data === null){
-            this.createNotification("success");
+        if (this.props.entityDelete.data === "success"){
+            this.createNotification("success", "Delete action succeeded.");
             this.props.getEntityList({
               pageNumber: this.props.data.pageNumber,
               pageSize: this.props.data.pageSize,
-              filter: this.savedTerm
+              filter: this.savedTerm,
+              sort: this.props.data.sort
             });
+        } else if (this.props.entityDelete.data === "error"){
+
+            this.createNotification("error", "Delete action failed.");
         } else {
-            this.createNotification("error");
+            this.createNotification("warning", this.props.entityDelete.data);
         }
     }
   }
@@ -110,15 +92,15 @@ class EntityListTableCard extends Component {
 
   };
 
-  createNotification = (type, className) => {
+  createNotification = (type, message) => {
 
-    let cName = className || "";
+    let cName = "";
 
     switch (type) {
 
       case "success":
         NotificationManager.success(
-          "Delete action succeeded.",
+          message,
           "Success",
           3000,
           null,
@@ -128,8 +110,18 @@ class EntityListTableCard extends Component {
         break;
       case "error":
         NotificationManager.error(
-          "Delete action failed.",
+          message,
           "Error",
+          5000,
+          null,
+          null,
+          cName
+        );
+        break;
+      case "warning":
+        NotificationManager.warning(
+          message,
+          "Warning",
           5000,
           null,
           null,
@@ -202,9 +194,6 @@ class EntityListTableCard extends Component {
             <i className = "iconsminds-add"/>
             Add
           </Button>
-          <div>
-          To search something, please say "Show me ..." . To show all data, please say "Show me all". Search Text : {filter}
-          </div>
           <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <ModalBody align = "center">
               <IntlMessages id="common.confirm-delete" />
@@ -229,10 +218,12 @@ class EntityListTableCard extends Component {
             loading={this.state.loading}
             manual
             onFetchData={(state, instance) => {
+
               this.props.getEntityList({
                 pageNumber: state.page,
                 pageSize: state.pageSize,
-                filter: filter
+                filter: filter,
+                sort: state.sorted
               });
             }}
           />

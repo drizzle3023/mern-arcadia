@@ -46,6 +46,7 @@ export const GET_USER_EDIT = "GET_USER_EDIT";
 export const UPDATE_USER = "UPDATE_USER";
 export const CREATE_USER = "CREATE_USER";
 export const DELETE_USER = "DELETE_USER";
+export const SELECT_ENTITY_FOR_USER_LIST = "SELECT_ENTITY_FOR_USER_LIST";
 
 export * from "./menu/actions";
 export * from "./settings/actions";

@@ -16,7 +16,7 @@ import  { Redirect} from 'react-router-dom'
 
 import IntlMessages from "../../helpers/IntlMessages";
 import CustomPagination from "../../components/CustomPagination";
-import { getUserList, deleteUser } from "../../redux/actions";
+import { getUserList, deleteUser, selectEntityForUserList } from "../../redux/actions";
 import { NotificationManager } from "../../components/common/react-notifications";
 
 class UserListTableCard extends Component {
@@ -40,39 +40,28 @@ class UserListTableCard extends Component {
 
   componentDidMount() {
 
-    if (annyang) {
-
-      const commands = {
-        'show me *term': (term) => {
-          this.savedTerm = term;
-          console.log('annyang: ' + term);
-          this.props.getUserList({
-            pageNumber: this.props.data.pageNumber,
-            pageSize: this.props.data.pageSize,
-            filter: term
-          });
-        }
-      };
-
-      annyang.addCommands(commands);
-      annyang.debug(true);
-      annyang.start();
-
-    }
   }
 
   componentWillMount() {
 
     console.log("componentWillMount");
-    annyang.abort();
   }
 
   componentDidUpdate(prevProps){
 
     console.log("componentDidUpdate");
     console.log(this.props);
-    console.log(prevProps);
-    console.log(this.savedTerm);
+
+    if (this.props.selectedEntity !== prevProps.selectedEntity){
+
+        this.props.getUserList({
+          pageNumber: this.props.data.pageNumber,
+          pageSize: this.props.data.pageSize,
+          filter: this.savedTerm,
+          selectedEntity: this.props.selectedEntity,
+          sort: this.props.data.sort
+        });
+    }
 
     if (this.props.userDelete !== prevProps.userDelete){
 
@@ -81,7 +70,9 @@ class UserListTableCard extends Component {
             this.props.getUserList({
               pageNumber: this.props.data.pageNumber,
               pageSize: this.props.data.pageSize,
-              filter: this.savedTerm
+              filter: this.savedTerm,
+              selectedEntity: this.props.selectedEntity,
+              sort: this.props.data.sort
             });
         } else {
             this.createNotification("error");
@@ -91,14 +82,10 @@ class UserListTableCard extends Component {
 
   onAddClicked() {
 
-      console.log("Add Clicked...");
       this.setState({ redirect: true });
   }
 
   onDelClicked() {
-
-      console.log("Delete Clicked...");
-      console.log(this.state.selectedUser);
 
       this.props.deleteUser({
           userId: this.state.selectedUser
@@ -152,10 +139,9 @@ class UserListTableCard extends Component {
 
   render() {
 
-    console.log(this.props.data.items);
-
     const data = this.props.data.items;
     const filter = this.props.data.filter;
+    const selectedEntity = this.props.data.selectedEntity;
     const { redirect } = this.state;
 
     const dataTableColumns = [
@@ -216,9 +202,6 @@ class UserListTableCard extends Component {
             <i className = "iconsminds-add"/>
             <IntlMessages id="common.add" />
           </Button>
-          <div>
-          To search something, please say "Show me ..." . To show all data, please say "Show me all". Search Text : {filter}
-          </div>
           <Modal isOpen={this.state.modal} toggle={this.toggle}>
             <ModalBody align = "center">
               <IntlMessages id="common.confirm-delete" />
@@ -246,7 +229,9 @@ class UserListTableCard extends Component {
               this.props.getUserList({
                 pageNumber: state.page,
                 pageSize: state.pageSize,
-                filter: filter
+                filter: filter,
+                selectedEntity: selectedEntity,
+                sort: state.sorted
               });
             }}
           />
@@ -260,12 +245,14 @@ const mapStateToProps = state => {
 
   return ({
     data: state.entityUser.userList.data === undefined ? { items: [], totalCount: 0 } : state.entityUser.userList.data,
-    userDelete: state.entityUser.userDelete
+    userDelete: state.entityUser.userDelete,
+    selectedEntity: state.entityUser.selectEntityForUserList
   });
 };
 
 export default connect(
   mapStateToProps,
   { getUserList,
-    deleteUser }
+    deleteUser,
+    selectEntityForUserList }
 )(UserListTableCard);

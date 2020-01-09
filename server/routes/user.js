@@ -121,60 +121,71 @@ userRouter.post("/delete", (req, res) => {
 
 userRouter.post('/get/filtered', (req, res) => {
 
+    console.log(req.body);
+
     let pageNumber = req.body.pageNumber;
     let pageSize = req.body.pageSize;
     let filter = req.body.filter || '';
+    let entity = req.body.selectedEntity || '';
+    let sort = req.body.sort;
+    let entityObj = {};
+    let sortObj = {};
+
     filter = filter.trim();
     if (filter.toLowerCase().startsWith("all")) {
         filter = '';
     }
 
-    if (filter === '') {
-        userModel.count().then((totalCount) => {
-            userModel.find()
-                .populate('entity')
-                .skip(pageNumber * pageSize)
-                .limit(pageSize)
-                .then(userList => {
+    if (Object.keys(entity).length === 0){
+        entityObj = {};
+    } else{
 
-                    console.log(userList);
+        let entityVal = "";
+        let entityKey = 'entity';
 
-                    res.json(createResponse({
-                        items: userList,
-                        totalCount,
-                        pageSize,
-                        pageNumber,
-                        filter
-                    }));
-                });
-        });
+        entityVal = entity;
+
+        entityObj[entityKey] = entityVal;
     }
-    else {
-        let condition = {
-                $or: [
-                    { userName: { $regex: filter }}
-                ]
-            };
 
-        userModel.count(condition).then((totalCount) => {
-            userModel.find(condition)
-                .populate('entity')
-                .skip(pageNumber * pageSize)
-                .limit(pageSize)
-                .then(userList => {
+    if (Object.keys(sort).length === 0){
+        sortObj = {'userName': 1};
+    } else{
 
-                    console.log(userList);
+        let sortVal = -1;
+        let sortKey = 'userName';
+        if (sort[0].desc === true)
+            sortVal = -1;
+        else
+            sortVal = 1;
 
-                    res.json(createResponse({
-                        items: userList,
-                        totalCount,
-                        pageSize,
-                        pageNumber,
-                        filter
-                    }));
-                });
-        });
+        sortKey = sort[0].id;
+
+        sortObj[sortKey] = sortVal;
+
     }
+
+    userModel.find(entityObj).count().then((totalCount) => {
+        userModel.find(entityObj)
+            .sort(sortObj)
+            .populate('entity')
+            .skip(pageNumber * pageSize)
+            .limit(pageSize)
+            .then(userList => {
+
+                console.log(userList);
+
+                res.json(createResponse({
+                    items: userList,
+                    totalCount,
+                    pageSize,
+                    pageNumber,
+                    entity,
+                    filter,
+                    sort
+                }));
+            });
+    });
 });
 
 module.exports = userRouter;

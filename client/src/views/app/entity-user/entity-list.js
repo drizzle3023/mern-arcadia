@@ -33,7 +33,7 @@ export default class EntityList extends Component {
                     </Colxx>
                 </Row>
                 <Row>
-                    <Colxx xxs="12">
+                    <Colxx xxs="8">
                         <EntityListTableCard />
                     </Colxx>
                 </Row>

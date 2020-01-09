@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { 
     GET_ENTITY_LIST, GET_ENTITY_DETAIL, UPDATE_ENTITY, CREATE_ENTITY, DELETE_ENTITY, GET_ENTITY_LIST_NO_FILTER,
-    GET_USER_LIST, GET_USER_DETAIL, UPDATE_USER, CREATE_USER, DELETE_USER } from "../actions";
+    GET_USER_LIST, GET_USER_DETAIL, UPDATE_USER, CREATE_USER, DELETE_USER, SELECT_ENTITY_FOR_USER_LIST } from "../actions";
 
 const url = "http://192.168.1.11:5000";
 //const url = "";
@@ -191,4 +191,15 @@ export const deleteUser = (body) => (dispatch) => {
         .catch(err =>
             console.log(err.response.data)
         );
+}
+
+// Select entity for user list
+export const selectEntityForUserList = (body) => (dispatch) => {
+
+    console.log(body);
+
+    dispatch({
+        type: SELECT_ENTITY_FOR_USER_LIST,
+        payload: body.entityId
+    });
 }
